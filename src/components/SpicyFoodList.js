@@ -6,11 +6,23 @@ function SpicyFoodList() {
 
   function handleAddFood() {
     const newFood = getNewRandomSpicyFood();
-    console.log(newFood);
+    const freshspicyFood = [...foods, newFood];
+    setFoods(freshspicyFood);
+    console.log(newFood, "newFood");
+  }
+
+  function handleDeleteFood(id) {
+    const index = foods.filter((food) => food.id === id);
+    if (index !== -1) {
+      const newFoodArray = foods
+        .slice(foods - 1, index)
+        .concat(foods.slice(index, foods.length - 1));
+      setFoods(newFoodArray);
+    }
   }
 
   const foodList = foods.map((food) => (
-    <li key={food.id}>
+    <li key={food.id} onClick={handleDeleteFood}>
       {food.name} | Heat: {food.heatLevel} | Cuisine: {food.cuisine}
     </li>
   ));
